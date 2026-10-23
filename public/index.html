@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Soundcloud Pirate — Your Sound. Your Quality. No Limits.</title>
+<meta name="description" content="Convertis tes fichiers audio autorisés en MP3 320 kb/s ou WAV, directement dans ton navigateur.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23050008'/%3E%3Cellipse cx='60' cy='55' rx='28' ry='34' fill='%231b0626' stroke='%23ff1744' stroke-width='6'/%3E%3Cpath d='M36 44h48l-5 15H62l-2-5-2 5H41z' fill='%23ff7a00'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Chakra+Petch:wght@400;600&display=swap">
+<style>
+:root{--bg:#050008;--v:#8a2be2;--r:#ff1744;--o:#ff7a00;--tx:#f4eaff;--mut:#b9a6cc;--glass:rgba(40,10,60,.45);--grad:linear-gradient(100deg,var(--v),var(--r) 60%,var(--o))}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);font:400 1rem/1.6 'Chakra Petch',system-ui,sans-serif;min-height:100vh}
+#bars{position:fixed;inset:0;width:100%;height:100%;z-index:-1;opacity:.55}
+.sr{position:absolute;left:-9999px}
+:focus-visible{outline:3px solid var(--o);outline-offset:2px}
+.nav{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:.6rem 5vw;background:rgba(5,0,8,.8);backdrop-filter:blur(12px);border-bottom:1px solid #ffffff14}
+.brand{display:flex;align-items:center;gap:.6rem;color:var(--tx);text-decoration:none;font:1.3rem Anton,sans-serif;letter-spacing:.04em;text-transform:uppercase}
+nav{display:flex;gap:1.4rem;align-items:center}nav a{color:var(--mut);text-decoration:none}nav a:hover{color:var(--tx)}
+.burger{display:none;background:none;border:1px solid #fff3;color:var(--tx);font-size:1.4rem;border-radius:8px;padding:.2rem .6rem}
+.btn{background:var(--grad);color:#fff;border:0;border-radius:10px;padding:.9rem 1.6rem;font:600 1rem 'Chakra Petch';letter-spacing:.06em;cursor:pointer;text-decoration:none;display:inline-block;box-shadow:0 0 24px #ff174455;transition:transform .15s,box-shadow .15s}
+.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 0 40px #ff7a0088}.btn:disabled{opacity:.5;cursor:wait}.btn.small{padding:.45rem 1rem}
+main{max-width:1000px;margin:0 auto;padding:0 5vw}
+.hero{padding:8vh 0 3vh;text-align:center}
+h1{font:clamp(3rem,11vw,7.5rem)/.95 Anton,sans-serif;margin:0;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 28px #ff174466)}
+.sub{font-size:1.25rem;margin:1.5rem 0 .2rem}.tag{color:var(--mut);margin:0 0 2rem}
+.glass{background:var(--glass);border:1px solid #ffffff1f;border-radius:16px;backdrop-filter:blur(14px);padding:1.4rem}
+form.row{display:flex;gap:.8rem;flex-wrap:wrap}form.row input{flex:1 1 280px}
+input[type=url],select{background:#0b0212;color:var(--tx);border:1px solid #8a2be2aa;border-radius:10px;padding:.9rem 1rem;font:inherit}
+.drop{display:block;margin-top:1rem;border:2px dashed #8a2be2aa;border-radius:14px;padding:2rem 1rem;cursor:pointer;color:var(--mut);transition:border-color .15s,background .15s}
+.drop:hover,.drop.over{border-color:var(--o);background:#ff7a0012;color:var(--tx)}
+.drop input{position:absolute;opacity:0;pointer-events:none}
+.msg{color:#ff8fa3;margin-top:1rem}.msg.ok{color:#9dffb0}
+.card{margin:2rem 0;display:grid;gap:1.2rem}
+.track{display:flex;gap:1.2rem;align-items:center}.track img{border-radius:12px;object-fit:cover;background:#1b0626}
+.track h2{margin:0;font:1.8rem Anton,sans-serif;word-break:break-word}.track p{margin:.1rem 0;color:var(--mut)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+fieldset{border:1px solid #ffffff1f;border-radius:12px;display:grid;gap:.5rem}fieldset:disabled{opacity:.4}
+.hint{color:var(--mut);margin:0}
+.track-bar{height:14px;background:#1b0626;border-radius:99px;overflow:hidden}#fill{height:100%;width:0;background:var(--grad);transition:width .2s}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:4rem 0}
+.grid h3{margin:0 0 .4rem;font:1.3rem Anton,sans-serif;letter-spacing:.03em}.grid p{margin:0;color:var(--mut)}
+.about{margin-bottom:3rem}.about h2{font:2rem Anton,sans-serif;margin-top:0}
+footer{padding:2rem 5vw;border-top:1px solid #ffffff14;color:var(--mut);display:grid;gap:.4rem;max-width:1000px;margin:auto}
+[hidden]{display:none!important}
+@media(max-width:700px){.burger{display:block}nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:#050008f2;padding:1rem}nav.open{display:flex}.track{flex-direction:column;align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<canvas id="bars" aria-hidden="true"></canvas>
+<header class="nav">
+  <a class="brand" href="#top"><svg width="40" height="40" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a2be2"/><stop offset=".6" stop-color="#ff1744"/><stop offset="1" stop-color="#ff7a00"/></linearGradient></defs><path d="M14 118c2-30 18-42 46-42s44 12 46 42z" fill="#16041f" stroke="url(#g)" stroke-width="4"/><ellipse cx="60" cy="46" rx="25" ry="31" fill="#1b0626" stroke="url(#g)" stroke-width="4"/><path d="M33 52c-6-3-6-30 2-40M87 52c6-3 6-30-2-40" fill="none" stroke="#8a2be2" stroke-width="5" stroke-linecap="round"/><path d="M36 40h48l-5 15H62l-2-5-2 5H41z" fill="#ff1744"/><path d="M46 70h28" stroke="#ff7a00" stroke-width="4" stroke-linecap="round"/></svg><span>Soundcloud Pirate</span></a>
+  <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu">☰</button>
+  <nav id="menu"><a href="#top">Accueil</a><a href="#features">Fonctionnalités</a><a href="#about">À propos</a><a class="btn small" href="#convert">Convertir</a></nav>
+</header>
+<main id="top">
+  <section class="hero">
+    <h1>YOUR MUSIC.<br>YOUR RULES.</h1>
+    <p class="sub">Convert your authorized audio into high-quality MP3 or WAV files.</p>
+    <p class="tag">Your Sound. Your Quality. No Limits.</p>
+    <form id="analyze" class="glass row" novalidate>
+      <label for="url" class="sr">Lien SoundCloud</label>
+      <input id="url" type="url" inputmode="url" placeholder="https://soundcloud.com/artiste/titre" autocomplete="off">
+      <button class="btn" id="analyzeBtn">ANALYSER LE LIEN</button>
+    </form>
+    <label class="drop" id="drop"><input id="file" type="file" accept="audio/*,.flac,.wav,.mp3,.m4a,.ogg,.aiff"><strong>Dépose ton fichier audio ici</strong> ou clique pour le choisir.<br>La conversion se fait dans ton navigateur : rien n'est envoyé sur un serveur.</label>
+    <p id="msg" class="msg" role="alert" hidden></p>
+  </section>
+
+  <section id="convert" class="glass card" hidden>
+    <div class="track"><img id="art" alt="" width="120" height="120" hidden><div><h2 id="title"></h2><p id="artist"></p><p id="dur"></p><p id="srcInfo"></p></div></div>
+    <div id="remoteBtns" hidden style="display:flex;gap:.8rem;flex-wrap:wrap"><button class="btn" id="fetchBtn" type="button">RÉCUPÉRER LE FICHIER</button><button class="btn" id="origBtn" type="button">TÉLÉCHARGER L'ORIGINAL</button></div>
+    <div class="opts">
+      <fieldset><legend>Format</legend>
+        <label><input type="radio" name="fmt" value="mp3" checked> MP3 320 kb/s</label>
+        <label><input type="radio" name="fmt" value="wav"> WAV (PCM)</label>
+        <label><input type="radio" name="fmt" value="max"> Qualité maximale (source conservée)</label>
+      </fieldset>
+      <fieldset id="wavOpts" disabled><legend>Réglages WAV</legend>
+        <label>Fréquence <select id="sr"><option value="">Identique à la source</option><option>44100</option><option>48000</option><option>96000</option></select></label>
+        <label>Profondeur <select id="bd"><option value="16">16 bits</option><option value="24">24 bits</option></select></label>
+      </fieldset>
+    </div>
+    <p class="hint" id="fmtHint"></p>
+    <button class="btn" id="go">LANCER LA CONVERSION</button>
+    <div id="prog" hidden><div class="track-bar"><div id="fill"></div></div><p id="stage" aria-live="polite"></p></div>
+    <div id="done" hidden><p id="doneInfo"></p><a class="btn" id="dl">TÉLÉCHARGER LE FICHIER</a></div>
+  </section>
+
+  <section id="features" class="grid">
+    <article class="glass"><h3>MP3 320 kb/s</h3><p>Encodage LAME exécuté localement dans ton navigateur.</p></article>
+    <article class="glass"><h3>WAV non compressé</h3><p>PCM 16 ou 24 bits, 44,1 à 96 kHz.</p></article>
+    <article class="glass"><h3>Qualité honnête</h3><p>Nous affichons la source réelle. Un WAV tiré d'un MP3 ne contient pas plus de détails.</p></article>
+    <article class="glass"><h3>Mobile et desktop</h3><p>Interface fluide, navigable au clavier.</p></article>
+    <article class="glass"><h3>Droits respectés</h3><p>Seuls les morceaux dont le titulaire autorise le téléchargement sont récupérés, via l'API officielle.</p></article>
+  </section>
+  <section id="about" class="glass about"><h2>À propos</h2><p>Soundcloud Pirate convertit les fichiers audio que tu as le droit de télécharger : tes propres morceaux, ou ceux dont l'artiste a activé le téléchargement sur SoundCloud. Colle le lien : si le téléchargement est autorisé, le fichier est récupéré via l'API officielle ; sinon, dépose un fichier que tu possèdes. Le site ne contourne aucune protection.</p></section>
+</main>
+<footer>
+  <details><summary>Mentions légales</summary><p>Service indépendant, non affilié à SoundCloud. L'éditeur doit renseigner ici ses informations légales.</p></details>
+  <details><summary>Confidentialité</summary><p>Les fichiers sont convertis dans ton navigateur. Le lien collé est envoyé à notre fonction serveur pour interroger l'API officielle de SoundCloud.</p></details>
+  <details><summary>Formats audio</summary><p>MP3 : compression avec perte. WAV : PCM non compressé. Convertir un format avec perte en WAV n'améliore pas la qualité.</p></details>
+  <details><summary>Droits d'auteur</summary><p>Ne convertis que des contenus que tu es autorisé à utiliser. Tu es responsable de l'usage des fichiers.</p></details>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lamejs/1.2.1/lame.min.js"></script>
+<script>
+const $ = (s) => document.querySelector(s);
+const msg = $('#msg');
+let file = null, buffer = null, outUrl = null, remote = null;
+const safe = (s) => String(s).replace(/[^\w\- ]+/g, '').trim().slice(0, 80) || 'audio';
+const show = (t, ok = false) => { msg.textContent = t; msg.hidden = !t; msg.classList.toggle('ok', ok); };
+const fmtDur = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
+const tick = () => new Promise((r) => setTimeout(r));
+const setProg = (p, t) => { $('#fill').style.width = Math.round(p * 100) + '%'; $('#stage').textContent = `${t} — ${Math.round(p * 100)} %`; };
+
+$('.burger').addEventListener('click', (e) => { const o = $('#menu').classList.toggle('open'); e.currentTarget.setAttribute('aria-expanded', o); });
+$('#menu').addEventListener('click', () => $('#menu').classList.remove('open'));
+
+async function api(mode, url) {
+  let r;
+  try { r = await fetch('/.netlify/functions/track?mode=' + mode + '&url=' + encodeURIComponent(url)); } catch { throw new Error('Serveur injoignable.'); }
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || 'Erreur ' + r.status);
+  return j;
+}
+$('#analyze').addEventListener('submit', async (e) => {
+  e.preventDefault(); show('');
+  const v = $('#url').value.trim();
+  let u; try { u = new URL(v); } catch { return show('Colle un lien complet, par exemple https://soundcloud.com/artiste/titre'); }
+  if (u.protocol !== 'https:' || !/^(www\.|m\.|on\.)?soundcloud\.com$/i.test(u.hostname) || u.pathname.length < 2) return show('Seuls les liens de morceaux soundcloud.com sont acceptés.');
+  const btn = $('#analyzeBtn'); btn.disabled = true; btn.textContent = 'ANALYSE…';
+  try {
+    const j = await api('info', u.toString());
+    remote = { url: u.toString(), title: j.title };
+    $('#title').textContent = j.title; $('#artist').textContent = j.artist;
+    if (j.artwork && j.artwork.startsWith('https://')) { $('#art').src = j.artwork; $('#art').hidden = false; } else $('#art').hidden = true;
+    $('#dur').textContent = 'Durée : ' + fmtDur(j.durationMs / 1000); $('#srcInfo').textContent = '';
+    file = buffer = null; $('#convert').hidden = false; $('#remoteBtns').hidden = !j.downloadable; $('#go').disabled = true;
+    show(j.downloadable ? "Téléchargement autorisé par le titulaire. Récupère le fichier pour le convertir, ou télécharge l'original." : "Le titulaire n'autorise pas le téléchargement de ce morceau : la conversion est impossible.", j.downloadable);
+  } catch (err) { show(err.message); }
+  finally { btn.disabled = false; btn.textContent = 'ANALYSER LE LIEN'; }
+});
+
+$('#origBtn').addEventListener('click', async () => {
+  try { show('Préparation du lien…', true); const l = await api('link', remote.url); show(''); location.href = l.location; } catch (e) { show(e.message); }
+});
+$('#fetchBtn').addEventListener('click', async () => {
+  try {
+    show('Téléchargement en cours…', true);
+    const l = await api('link', remote.url), r = await fetch(l.location);
+    if (!r.ok) throw new Error('Téléchargement refusé (' + r.status + ').');
+    const b = await r.blob(), ext = ({ 'audio/mpeg': 'mp3', 'audio/wav': 'wav', 'audio/x-wav': 'wav', 'audio/flac': 'flac', 'audio/x-flac': 'flac', 'audio/mp4': 'm4a', 'audio/ogg': 'ogg' })[b.type] || 'mp3';
+    await load(new File([b], safe(remote.title) + '.' + ext, { type: b.type }));
+  } catch (e) { show(e instanceof TypeError ? "Le navigateur ne peut pas lire ce fichier directement. Clique sur « Télécharger l'original », puis dépose-le ci-dessus." : e.message); }
+});
+
+const drop = $('#drop');
+['dragover', 'dragenter'].forEach((n) => drop.addEventListener(n, (e) => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave', 'drop'].forEach((n) => drop.addEventListener(n, () => drop.classList.remove('over')));
+drop.addEventListener('drop', (e) => { e.preventDefault(); if (e.dataTransfer.files[0]) load(e.dataTransfer.files[0]); });
+$('#file').addEventListener('change', (e) => { if (e.target.files[0]) load(e.target.files[0]); });
+
+async function load(f) {
+  show(''); $('#done').hidden = $('#prog').hidden = true; buffer = null;
+  if (f.size > 500 * 1048576) return show('Fichier trop volumineux (500 Mo maximum).');
+  file = f; show('Analyse du fichier…', true);
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    buffer = await ctx.decodeAudioData(await f.arrayBuffer()); ctx.close();
+  } catch { file = null; return show('Fichier audio illisible ou format non supporté par ton navigateur.'); }
+  const ext = (f.name.split('.').pop() || '?').toUpperCase();
+  $('#title').textContent = f.name.replace(/\.[^.]+$/, ''); $('#artist').textContent = '';
+  $('#art').hidden = true; $('#dur').textContent = 'Durée : ' + fmtDur(buffer.duration);
+  $('#srcInfo').textContent = `Source : ${ext}, ${buffer.sampleRate} Hz, ${buffer.numberOfChannels} canal(aux), ${(f.size / 1048576).toFixed(1)} Mo`;
+  $('#convert').hidden = false; $('#go').disabled = false; show(''); $('#convert').scrollIntoView({ behavior: 'smooth' });
+}
+
+const hints = { mp3: 'Encodage MP3 320 kb/s (sans tags ID3). Si la source est déjà en MP3, aucune qualité n\'est gagnée.', wav: 'PCM non compressé. Un WAV issu d\'une source avec perte ne contient pas plus de détails que l\'original.', max: 'Source avec perte (MP3, AAC, OGG…) : fichier original fourni tel quel. Source sans perte (WAV, FLAC, AIFF) : WAV 24 bits à la fréquence d\'origine.' };
+const fmt = () => document.querySelector('input[name=fmt]:checked').value;
+const sync = () => { $('#wavOpts').disabled = fmt() !== 'wav'; $('#fmtHint').textContent = hints[fmt()]; };
+document.querySelectorAll('input[name=fmt]').forEach((r) => r.addEventListener('change', sync)); sync();
+
+async function resample(buf, sr) {
+  if (buf.sampleRate === sr) return buf;
+  const off = new OfflineAudioContext(buf.numberOfChannels, Math.ceil(buf.length * sr / buf.sampleRate), sr);
+  const s = off.createBufferSource(); s.buffer = buf; s.connect(off.destination); s.start();
+  return off.startRendering();
+}
+
+async function toWav(buf, bits) {
+  const ch = buf.numberOfChannels, n = buf.length, bps = bits / 8, data = n * ch * bps;
+  const out = new DataView(new ArrayBuffer(44 + data));
+  const w = (o, s) => [...s].forEach((c, i) => out.setUint8(o + i, c.charCodeAt(0)));
+  w(0, 'RIFF'); out.setUint32(4, 36 + data, true); w(8, 'WAVEfmt '); out.setUint32(16, 16, true); out.setUint16(20, 1, true);
+  out.setUint16(22, ch, true); out.setUint32(24, buf.sampleRate, true); out.setUint32(28, buf.sampleRate * ch * bps, true);
+  out.setUint16(32, ch * bps, true); out.setUint16(34, bits, true); w(36, 'data'); out.setUint32(40, data, true);
+  const chans = [...Array(ch).keys()].map((c) => buf.getChannelData(c)); let o = 44;
+  for (let i = 0; i < n; i++) {
+    for (let c = 0; c < ch; c++) {
+      const x = Math.max(-1, Math.min(1, chans[c][i]));
+      if (bits === 16) { out.setInt16(o, x < 0 ? x * 32768 : x * 32767, true); }
+      else { const v = Math.round(x < 0 ? x * 8388608 : x * 8388607); out.setUint8(o, v & 255); out.setUint8(o + 1, (v >> 8) & 255); out.setUint8(o + 2, (v >> 16) & 255); }
+      o += bps;
+    }
+    if (i % 200000 === 0) { setProg(i / n, 'Écriture du WAV'); await tick(); }
+  }
+  return new Blob([out], { type: 'audio/wav' });
+}
+
+async function toMp3(buf) {
+  if (typeof lamejs === 'undefined') throw new Error('Encodeur MP3 non chargé (connexion internet requise).');
+  const sr = [32000, 44100, 48000].includes(buf.sampleRate) ? buf.sampleRate : 44100;
+  buf = await resample(buf, sr);
+  const ch = Math.min(2, buf.numberOfChannels), enc = new lamejs.Mp3Encoder(ch, sr, 320), parts = [], N = buf.length, B = 1152 * 40;
+  const pcm = (c) => buf.getChannelData(Math.min(c, buf.numberOfChannels - 1));
+  const L = pcm(0), R = ch > 1 ? pcm(1) : null;
+  const i16 = (a, s, e) => { const o = new Int16Array(e - s); for (let i = s; i < e; i++) { const x = Math.max(-1, Math.min(1, a[i])); o[i - s] = x < 0 ? x * 32768 : x * 32767; } return o; };
+  for (let i = 0; i < N; i += B) {
+    const e = Math.min(N, i + B), d = ch > 1 ? enc.encodeBuffer(i16(L, i, e), i16(R, i, e)) : enc.encodeBuffer(i16(L, i, e));
+    if (d.length) parts.push(d);
+    setProg(i / N, 'Encodage MP3'); await tick();
+  }
+  const end = enc.flush(); if (end.length) parts.push(end);
+  return new Blob(parts, { type: 'audio/mpeg' });
+}
+
+$('#go').addEventListener('click', async () => {
+  if (!buffer) return show('Dépose d\'abord un fichier audio.');
+  show(''); $('#done').hidden = true; $('#prog').hidden = false; $('#go').disabled = true;
+  if (outUrl) URL.revokeObjectURL(outUrl);
+  const base = file.name.replace(/\.[^.]+$/, '').replace(/[^\w\- ]+/g, '').trim().slice(0, 80) || 'audio';
+  const srcExt = (file.name.split('.').pop() || '').toLowerCase(), lossless = ['wav', 'flac', 'aif', 'aiff'].includes(srcExt);
+  try {
+    let blob, name, note = '';
+    if (fmt() === 'mp3') {
+      blob = await toMp3(buffer); name = base + '.mp3';
+      if (srcExt === 'mp3') note = 'La source était déjà un MP3 : ce ré-encodage ne peut pas améliorer la qualité.';
+    } else if (fmt() === 'wav') {
+      const sr = +$('#sr').value || buffer.sampleRate; setProg(0, 'Préparation');
+      blob = await toWav(await resample(buffer, sr), +$('#bd').value); name = base + '.wav';
+      if (!lossless) note = 'La source est avec perte : le WAV ne contient pas plus de détails que l\'original.';
+    } else if (lossless && srcExt !== 'wav') {
+      blob = await toWav(buffer, 24); name = base + '.wav'; note = 'Source sans perte exportée en WAV 24 bits.';
+    } else { blob = file; name = file.name; note = lossless ? 'Fichier WAV source conservé tel quel.' : 'Fichier source conservé tel quel, sans conversion.'; }
+    if (!blob || blob.size < 1000) throw new Error('Le fichier généré est vide.');
+    outUrl = URL.createObjectURL(blob); setProg(1, 'Terminé');
+    const a = $('#dl'); a.href = outUrl; a.download = name;
+    $('#doneInfo').textContent = `${name} (${(blob.size / 1048576).toFixed(1)} Mo). ${note}`;
+    $('#done').hidden = false; $('#prog').hidden = true;
+  } catch (err) { $('#prog').hidden = true; show(err.message || 'Conversion échouée.'); }
+  finally { $('#go').disabled = false; }
+});
+
+/* Fond décoratif : barres animées (aucune donnée audio réelle). */
+(function bars() {
+  const c = $('#bars'), x = c.getContext('2d');
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const fit = () => { c.width = innerWidth; c.height = innerHeight; }; fit(); addEventListener('resize', fit);
+  (function draw(t) {
+    x.clearRect(0, 0, c.width, c.height);
+    const n = Math.floor(c.width / 18), g = x.createLinearGradient(0, c.height, 0, c.height * .4);
+    g.addColorStop(0, '#8a2be2'); g.addColorStop(.6, '#ff1744'); g.addColorStop(1, '#ff7a00'); x.fillStyle = g;
+    for (let i = 0; i < n; i++) { const h = (Math.sin(t / 500 + i * .5) * .5 + .5) * (Math.sin(t / 1300 + i * .13) * .5 + .5) * c.height * .28 + 6; x.fillRect(i * 18, c.height - h, 11, h); }
+    requestAnimationFrame(draw);
+  })(0);
+})();
+</script>
+</body>
+</html>
